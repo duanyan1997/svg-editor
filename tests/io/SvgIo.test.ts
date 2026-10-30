@@ -151,9 +151,22 @@ describe("SvgReader", () => {
       `cannot read file: ${file}`,
     );
   });
+
+  it("读入路径是目录时报 cannot read file", () => {
+    expect(() => new SvgReader(factory).read(tmpDir)).toThrowError(
+      `cannot read file: ${tmpDir}`,
+    );
+  });
 });
 
 describe("SvgWriter + round-trip", () => {
+  it("写目标不可写（目录）时报 cannot write file", () => {
+    const doc = new SvgDocument(10, 10);
+    expect(() => new SvgWriter().write(doc, tmpDir)).toThrowError(
+      `cannot write file: ${tmpDir}`,
+    );
+  });
+
   it("写出内容含 xml 声明与嵌套结构", () => {
     const doc = new SvgDocument(400, 200);
     const group = Group.fromSvg("flow", {});
