@@ -41,6 +41,15 @@ export class Group extends Shape {
     return this.children.length;
   }
 
+  /** 严格包含（不含自身）：shape 是否在本容器的子孙中 */
+  contains(shape: Shape): boolean {
+    for (const child of this.children) {
+      if (child === shape) return true;
+      if (child instanceof Group && child.contains(shape)) return true;
+    }
+    return false;
+  }
+
   translate(dx: number, dy: number): void {
     for (const child of this.children) child.translate(dx, dy);
   }
