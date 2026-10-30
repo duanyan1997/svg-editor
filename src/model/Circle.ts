@@ -71,6 +71,19 @@ export class Circle extends Shape {
     }
   }
 
+  protected geometryAttr(name: string): string | undefined {
+    switch (name) {
+      case "cx":
+        return formatNumber(this.cx);
+      case "cy":
+        return formatNumber(this.cy);
+      case "r":
+        return formatNumber(this.r);
+      default:
+        return undefined;
+    }
+  }
+
   geometrySummary(): string {
     return `cx=${formatNumber(this.cx)} cy=${formatNumber(this.cy)} r=${formatNumber(this.r)}`;
   }

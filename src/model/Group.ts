@@ -54,6 +54,10 @@ export class Group extends Shape {
     throw new SvgError(`unknown attribute: ${name}`);
   }
 
+  protected geometryAttr(): string | undefined {
+    return undefined;
+  }
+
   geometrySummary(): string {
     return "";
   }

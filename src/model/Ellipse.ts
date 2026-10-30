@@ -79,6 +79,21 @@ export class Ellipse extends Shape {
     }
   }
 
+  protected geometryAttr(name: string): string | undefined {
+    switch (name) {
+      case "cx":
+        return formatNumber(this.cx);
+      case "cy":
+        return formatNumber(this.cy);
+      case "rx":
+        return formatNumber(this.rx);
+      case "ry":
+        return formatNumber(this.ry);
+      default:
+        return undefined;
+    }
+  }
+
   geometrySummary(): string {
     return `cx=${formatNumber(this.cx)} cy=${formatNumber(this.cy)} rx=${formatNumber(this.rx)} ry=${formatNumber(this.ry)}`;
   }

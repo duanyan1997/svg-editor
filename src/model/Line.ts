@@ -81,6 +81,21 @@ export class Line extends Shape {
     }
   }
 
+  protected geometryAttr(name: string): string | undefined {
+    switch (name) {
+      case "x1":
+        return formatNumber(this.x1);
+      case "y1":
+        return formatNumber(this.y1);
+      case "x2":
+        return formatNumber(this.x2);
+      case "y2":
+        return formatNumber(this.y2);
+      default:
+        return undefined;
+    }
+  }
+
   /** tree / show 用线段两端表达 */
   geometrySummary(): string {
     return `(${formatNumber(this.x1)},${formatNumber(this.y1)}) -> (${formatNumber(this.x2)},${formatNumber(this.y2)})`;

@@ -72,6 +72,19 @@ export class TextElement extends Shape {
     }
   }
 
+  protected geometryAttr(name: string): string | undefined {
+    switch (name) {
+      case "x":
+        return formatNumber(this.x);
+      case "y":
+        return formatNumber(this.y);
+      case "text":
+        return this.content;
+      default:
+        return undefined;
+    }
+  }
+
   geometrySummary(): string {
     return `(${formatNumber(this.x)},${formatNumber(this.y)}) "${this.content}"`;
   }

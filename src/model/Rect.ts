@@ -79,6 +79,21 @@ export class Rect extends Shape {
     }
   }
 
+  protected geometryAttr(name: string): string | undefined {
+    switch (name) {
+      case "x":
+        return formatNumber(this.x);
+      case "y":
+        return formatNumber(this.y);
+      case "width":
+        return formatNumber(this.width);
+      case "height":
+        return formatNumber(this.height);
+      default:
+        return undefined;
+    }
+  }
+
   geometrySummary(): string {
     return `x=${formatNumber(this.x)} y=${formatNumber(this.y)} w=${formatNumber(this.width)} h=${formatNumber(this.height)}`;
   }

@@ -52,8 +52,20 @@ export abstract class Shape {
     }
   }
 
+  /** 读属性值（白名单内），未设置返回 undefined；set 的 undo 回显需要旧值 */
+  getAttr(name: string): string | undefined {
+    if (name === "fill") return this.fill;
+    if (name === "stroke") return this.stroke;
+    if (name === "stroke-width")
+      return this.strokeWidth === undefined ? undefined : formatNumber(this.strokeWidth);
+    return this.geometryAttr(name);
+  }
+
   /** 各类型自身的几何属性白名单；不在白名单即未知属性 */
   protected abstract setGeometryAttr(name: string, value: string): void;
+
+  /** 读几何属性值（白名单内），未设置返回 undefined */
+  protected abstract geometryAttr(name: string): string | undefined;
 
   /** 非空的公共属性摘要（tree / show 追加用） */
   presentationSummary(): string {
