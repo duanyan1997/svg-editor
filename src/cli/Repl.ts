@@ -14,12 +14,13 @@ export class Repl {
   private readonly rl: readline.Interface;
 
   constructor(
-    input: NodeJS.ReadableStream,
+    input: NodeJS.ReadStream,
     private readonly output: Output,
     private readonly registry: CommandRegistry,
     private readonly editor: Editor,
   ) {
-    this.rl = readline.createInterface({ input, terminal: false });
+    // 交互终端显示 "svg> " 提示符；脚本回放（管道输入）保持输出干净
+    this.rl = readline.createInterface({ input, terminal: Boolean(input.isTTY) });
   }
 
   async run(): Promise<void> {

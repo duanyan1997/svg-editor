@@ -6,6 +6,7 @@ import { DeleteCommand } from "../commands/DeleteCommand.js";
 import { Editor } from "../commands/Editor.js";
 import { FrontCommand } from "../commands/FrontCommand.js";
 import { GroupCommand } from "../commands/GroupCommand.js";
+import { HelpCommand } from "../commands/HelpCommand.js";
 import { InitCommand } from "../commands/InitCommand.js";
 import { MoveCommand } from "../commands/MoveCommand.js";
 import { Output } from "../commands/Output.js";
@@ -14,6 +15,8 @@ import { RedoCommand } from "../commands/RedoCommand.js";
 import { SaveCommand } from "../commands/SaveCommand.js";
 import { ScaleCommand } from "../commands/ScaleCommand.js";
 import { SetCommand } from "../commands/SetCommand.js";
+import { ShowCommand } from "../commands/ShowCommand.js";
+import { TreeCommand } from "../commands/TreeCommand.js";
 import { UngroupCommand } from "../commands/UngroupCommand.js";
 import { UndoCommand } from "../commands/UndoCommand.js";
 import { createDefaultShapeFactory } from "../factory/ShapeFactory.js";
@@ -44,6 +47,9 @@ function bootstrap(output: Output): { repl: Repl; editor: Editor } {
   registry.register(new BackCommand());
   registry.register(new UndoCommand());
   registry.register(new RedoCommand());
+  registry.register(new TreeCommand());
+  registry.register(new ShowCommand());
+  registry.register(new HelpCommand(registry));
 
   return { repl: new Repl(process.stdin, output, registry, editor), editor };
 }
