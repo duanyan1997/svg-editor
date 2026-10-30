@@ -2,7 +2,6 @@ import * as readline from "node:readline";
 
 import { Editor } from "../commands/Editor.js";
 import { Output } from "../commands/Output.js";
-import { SvgError } from "../model/SvgError.js";
 import { CommandParser } from "./CommandParser.js";
 import { CommandRegistry } from "./CommandRegistry.js";
 
@@ -49,12 +48,6 @@ export class Repl {
       this.output.line(`error: unknown command: ${name}`);
       return;
     }
-    try {
-      command.execute(args, this.editor);
-    } catch (err) {
-      this.output.line(
-        err instanceof SvgError ? `error: ${err.message}` : `error: internal: ${String(err)}`,
-      );
-    }
+    this.editor.run(command, args);
   }
 }

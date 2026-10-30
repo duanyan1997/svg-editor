@@ -2,8 +2,9 @@ import { ShapeFactory } from "../factory/ShapeFactory.js";
 import { History } from "../history/History.js";
 import { SvgReader } from "../io/SvgReader.js";
 import { SvgWriter } from "../io/SvgWriter.js";
-import { SvgDocument } from "../model/SvgDocument.js";
 import { SvgError } from "../model/SvgError.js";
+import { SvgDocument } from "../model/SvgDocument.js";
+import { Command } from "./Command.js";
 import { Output } from "./Output.js";
 
 /**
@@ -31,5 +32,16 @@ export class Editor {
   replaceDocument(doc: SvgDocument): void {
     this.document = doc;
     this.history.clear();
+  }
+
+  /** 命令执行边界：统一捕获领域错误并格式化为 error: 行（通道无关，GUI/agent 可复用） */
+  run(command: Command, args: string[]): void {
+    try {
+      command.execute(args, this);
+    } catch (err) {
+      this.output.line(
+        err instanceof SvgError ? `error: ${err.message}` : `error: internal: ${String(err)}`,
+      );
+    }
   }
 }
