@@ -36,6 +36,11 @@ export class ShapeFactory {
     return build(id, params);
   }
 
+  /** 读入路径是否存在该类型的装配器（未知元素的降级判断用） */
+  hasFileBuilder(type: string): boolean {
+    return this.types.get(type)?.file !== undefined;
+  }
+
   /** 读入未知元素返回 null（调用方决定降级策略），与 CLI 路径的硬错误区分 */
   createFromFile(type: string, id: string, attrs: Record<string, string>, content: string): Shape | null {
     const build = this.types.get(type)?.file;
